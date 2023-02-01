@@ -5,7 +5,7 @@ import Screen from './Component/Screen';
 
 function App() {
   return (
-   <div>
+   <div className='align-items-center'>
     
     
    <Routes>

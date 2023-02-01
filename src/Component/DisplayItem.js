@@ -1,6 +1,4 @@
 import React from 'react'
-import{faFolder,faFileAlt} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux';
 import {changeFolder} from '../redux/action/filefolderCreator'
@@ -17,24 +15,29 @@ function DisplayItem( {title,items,type}) {
     }
   }
   return (
-    <div>
-        <h4 className='text-center border-bottom'>{title}</h4>
-<div className='row gap-2 py-4 px-5'>
+    <div className='flex justify-content-center m-auto'>
+<div className='row gap-2 py-4 px-5 text-center fw-bold '>
     {items.map((item,index)=>{
-return <p key={index *55 } className='col-md-2 border p-2 text-center d-flex flex-column' 
+return <p key={index *55 } className=' card col-2 border text-center  flex-column justify-content-center' 
 onDoubleClick={()=>handleDblClick(item.docId)}
 >
  {type==="folder"?(
-  <FontAwesomeIcon icon={faFolder} size="4x" className='mb-3'/>
-
+  <div className='text-centers m-auto'>
+  <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-folder-web-flaticons-lineal-color-flat-icons-5.png" alt="" width="80" height="*80"/>
+</div>
  ):(
-  <FontAwesomeIcon icon={faFileAlt}  size="4x" className='mb-3'/>
+
+  <div className='text-centers m-auto'>
+  <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-file-web-flaticons-lineal-color-flat-icons-7.png" alt='' width='90' height='90'/>
+  </div>
  )}
  
-  {item.data.name}</p>
+ 
+  {item.data.name }</p>
 
     })}
 </div>
+
 
 
 

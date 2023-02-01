@@ -7,24 +7,28 @@ import DisplayItem from '../DisplayItem';
 const FolderComponent = () => {
     const {folderId}=useParams();
     // eslint-disable-next-line 
-    const {currentFolderData,childFolder}=useSelector(
+    const {currentFolderData,childFolder,childFile}=useSelector(
       state=>({currentFolderData:state.filefolder.Folders.find(
         (folder)=>folder.docId===folderId
         )?.data,
     childFolder:state.filefolder.Folders.filter(
       (folder)=>folder.data.parent===folderId
       ),
+      childFile:state.filefolder.Files.filter(
+        (file)=>file.data.parent===folderId
+        ),
     }),
     shallowEqual);
   return (
-    <div> 
+    <div className='container card'> 
       {childFolder?.length > 0?(
       <div>
-      <DisplayItem title={"Folders"} type="folder" items={childFolder}/></div>
+      <DisplayItem title={"Folders"} type="folder" items={childFolder}/>
+      <DisplayItem title={"Files"} type="files" items={childFile}/></div>
     ):(
-    <p>
-      Empty Folder
-    </p>)}
+    <div className='text-center m-auto '>
+      <h4>Empty Folder</h4>
+    </div>)}
 
     </div>
 
