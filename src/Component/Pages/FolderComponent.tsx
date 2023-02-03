@@ -8,7 +8,7 @@ const FolderComponent = () => {
     const {folderId}=useParams();
     // eslint-disable-next-line 
     const {currentFolderData,childFolder,childFile}=useSelector(
-      state=>({currentFolderData:state.filefolder.Folders.find(
+      (state:any)=>({currentFolderData:state.filefolder.Folders.find(
         (folder)=>folder.docId===folderId
         )?.data,
     childFolder:state.filefolder.Folders.filter(
@@ -25,10 +25,15 @@ const FolderComponent = () => {
       <div>
       <DisplayItem title={"Folders"} type="folder" items={childFolder}/>
       <DisplayItem title={"Files"} type="files" items={childFile}/></div>
-    ):(
-    <div className='text-center m-auto '>
-      <h4>Empty Folder</h4>
-    </div>)}
+    ):( 
+
+      childFile?.length > 0?(<div>
+      <DisplayItem title={"Files"} type="files" items={childFile}/>
+
+   
+      
+    </div>):(<div className='text-center m-auto '><h4>Empty Folder</h4></div>)
+       )}
 
     </div>
 

@@ -24,17 +24,31 @@ const addFile=(payload)=>({
     type:types.ADD_FILES,
     payload
 })
-
+//s
 const addFiles=(payload)=>({
     type:types.CREATE_FILE,
     payload
 })
 
+const deleteFile=(payload)=>({
+    type:types.DELETE_FILE,
+    payload
+})
+const setFileData = (payload) => ({
+    type: types.SET_FILE_DATA,
+    payload,
+  });
+
 
 //action creater
+export const searchBar = text => dispatch => {
+    dispatch({
+      type: types.SEARCHBAR,
+      payload: text
+    });
+  };
 
 export const createFolder = (data)=>(dispatch)=>{
-    // console.log(data);
     fire.firestore().collection("Folder").add(data).then(async(folder)=>{
         const folderData=await (await folder.get()).data();
         const folderId=folder.id;
@@ -64,7 +78,7 @@ export const getFolders=()=>(dispatch)=>{
 export const changeFolder=(folderId)=>(dispatch)=>{
     dispatch(setChangeFolder(folderId));
 }
-export const getFiles=(userId)=>(dispatch)=>{
+export const getFiles=()=>(dispatch)=>{
     fire
     .firestore()
     .collection("files")
@@ -87,7 +101,43 @@ fire.firestore().collection("files").add(data).then(async(file)=>{
     dispatch(addFile({data:fileData,docId:fileId}))
 
 })
+}
+export const delFile=(id)=>(dispatch)=>{
+    console.log(id);
+    fire.firestore().collection("files").doc(id).delete().then(
+        
+        
+        alert("File deleted"),
+        dispatch(getFiles())
+        )
+
+
 
 }
+export const delFolder=(id)=>(dispatch)=>{
+    console.log(id);
+    fire.firestore().collection("Folder").doc(id).delete().then(
+        
+        
+        alert("Folder deleted"),
+        dispatch(getFolders())
+        )
 
+
+
+}
+export const updateFileData = (fileId, data) => (dispatch) => {
+    fire
+      .firestore()
+      .collection("files")
+      .doc(fileId)
+      .update({ data })
+      .then(() => {
+        dispatch(setFileData({ fileId, data }));
+        alert("File saved successfully!");
+      })
+      .catch(() => {
+        alert("Something went wrong!");
+      });
+  };
 

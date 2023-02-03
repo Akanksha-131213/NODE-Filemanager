@@ -5,21 +5,21 @@ const Tree = () => {
   const {Folders,Files}=useSelector((state)=>({
     
     Folders:state.filefolder.Folders,
-    Files:state.filefolder.Files
+    Files:state.filefolder.Files,
 
   
   }),shallowEqual);
 
 
- const navo=[{id:"root" ,name:"root",parentId:"0",children: null}];
+ const navo=[{id:"root" ,name:"root",parentId:"0",type:"folder",children: null}];
  let element={};
     for (const item in Folders){
   
-      element={id:Folders[item].docId,name:Folders[item].data.name, parentId:Folders[item].data.parent,children: null};
+      element={id:Folders[item].docId,name:Folders[item].data.name, parentId:Folders[item].data.parent,type:"folder",children: null};
        navo.push(element)
     }
     for (const item in Files){
-      element={id:Files[item].docId,name:Files[item].data.name, parentId:Files[item].data.parent,children: null};
+      element={id:Files[item].docId,name:Files[item].data.name, parentId:Files[item].data.parent,type:"file",children: null};
        navo.push(element)
     }
 

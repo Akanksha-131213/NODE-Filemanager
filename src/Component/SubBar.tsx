@@ -1,9 +1,11 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileUpload,faFolderPlus,faFileCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, To, useNavigate } from 'react-router-dom';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { changeFolder } from '../redux/action/filefolderCreator';
+
+
 
 
 
@@ -11,14 +13,14 @@ function SubBar({setCreateFolderOpt,setCreateFileOpt}) {
   const navigate=useNavigate();
   const dispatch=useDispatch();
   const { currentFolder, Folders,currentFolderData } = useSelector(
-    (state) => ({
+    (state:any) => ({
       Folders: state.filefolder.Folders,
       currentFolder:state.filefolder.currentFolder,
-      currentFolderData:state.filefolder.Folders.find((folder)=>folder.docId===state.filefolder.currentFolder)}),
+      currentFolderData:state.filefolder.Folders.find((folder: { docId: any; })=>folder.docId===state.filefolder.currentFolder)}),
     shallowEqual
   );
 
-  const handleNavigate=(link,id)=>{
+  const handleNavigate=(link: To,id: string)=>{
     navigate(link);
     dispatch(changeFolder(id));
   }
@@ -66,11 +68,11 @@ Root
 </nav>
 <nav className='navbar navbar-expand-lg navbar-light mt-2 bg-white  border'>
 <ul className='navbar-nav ms-auto'>
-    {/* <li className='nav-item'>
+    <li className='nav-item'>
         <button className='btn btn-outline-dark'>
         <FontAwesomeIcon icon={faFileUpload}/> Upload File
         </button>
-    </li> */}
+    </li>
     <li className='nav-item'>
         <button className='btn btn-outline-dark' onClick={()=>setCreateFileOpt(true)}>
         <FontAwesomeIcon icon={faFileCirclePlus} /> Create File

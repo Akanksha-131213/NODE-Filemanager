@@ -29,7 +29,7 @@ const CreateFolder = ({showModal,setShowModal}) => {
       .filter(
         (folder)=>folder.data.parent===currentFolder)
       .find((folder)=>
-      folder.name===name&& folder.data.parent===currentFolder);
+      folder.data.name===name&& folder.data.parent===currentFolder);
       if (FolderPresent)
       return true;
       else return false;
@@ -47,7 +47,6 @@ const CreateFolder = ({showModal,setShowModal}) => {
                 alert("Folder already present.")
             }
             else{
-                alert("folder created.")
                 const data={
               
                   name:folderName,

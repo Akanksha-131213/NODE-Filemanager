@@ -10,18 +10,22 @@ import { useDispatch } from 'react-redux';
 import {changeFolder} from '../../redux/action/filefolderCreator';
 
 
-export default function NavHead  ({data}) {
+export default function NavHead({data}) {
   const navigate=useNavigate();
   const dispatch=useDispatch();
-  const handleDblClick=(itemId)=>{
- 
-    dispatch(changeFolder(itemId));
-    navigate(`/home/folder/${itemId}`);
+  const handleDblClick=(itemId,type)=>{
+ if(type==="folder")
+   { dispatch(changeFolder(itemId));
+    navigate(`/home/folder/${itemId}`);}
+  else{
+      navigate(`/home/file/${itemId}`)
+    }
+    
 
 
 }
   const renderTree = (nodes) => (
-    <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name} onClick={()=>handleDblClick(nodes.id)} >
+    <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name} onClick={()=>handleDblClick(nodes.id,nodes.type)} >
       {Array.isArray(nodes.children)
         ? nodes.children.map((node) => renderTree(node))
         : null}

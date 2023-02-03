@@ -49,7 +49,6 @@ const CreateFile = ({showModal2,setShowModal2}) => {
                 alert("File already present.")
             }
             else{
-                alert("file created.")
                 const data={
               
                   name:extension?fileName:`${fileName}.txt`,
