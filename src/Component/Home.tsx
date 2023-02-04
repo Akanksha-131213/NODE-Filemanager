@@ -92,8 +92,7 @@ function Home() {
               <Route path="/" element={<Dashboard />} />
               <Route path="folder/:folderId" element={<FolderComponent />} />
              
-            </Routes></span>
-             <Routes>
+            </Routes></span> <Routes>
               <Route path="file/:fileId" element={<FileComponent />} /></Routes>
         </div>
       </div>
