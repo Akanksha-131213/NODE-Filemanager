@@ -9,7 +9,7 @@ import { changeFolder } from '../redux/action/filefolderCreator';
 
 
 
-function SubBar({setCreateFolderOpt,setCreateFileOpt}) {
+function SubBar({setCreateFolderOpt,setCreateFileOpt,setUploadFileOpt}) {
   const navigate=useNavigate();
   const dispatch=useDispatch();
   const { currentFolder, Folders,currentFolderData } = useSelector(
@@ -28,9 +28,9 @@ function SubBar({setCreateFolderOpt,setCreateFileOpt}) {
 
 
   return (
-    <div >
-        <nav className='navbar navbar-expand navbar-light mt-2 bg-white  border'>
-        <nav aria-label="breadcrumb" className='ms-5 '>
+    <div  className='bg-light border'>
+       
+        <nav aria-label="breadcrumb" className='ms-4'>
   <ol className="breadcrumb d-flex align-item-center">
 {currentFolder!== "root"?(
   <><button onClick={()=>handleNavigate("/home","root")}
@@ -60,25 +60,22 @@ Root
     
   </ol>
 </nav>
-        
 
 
 
-
-</nav>
-<nav className='navbar navbar-expand-lg navbar-light mt-2 bg-white  border'>
+<nav className='navbar navbar-expand-lg navbar-light mt-1 bg-light  border'>
 <ul className='navbar-nav ms-auto'>
-    <li className='nav-item'>
-        <button className='btn btn-outline-dark'>
+    <li className='nav-item me-3'>
+        <button className='btn btn-outline-dark shadow-sm ' onClick={()=>setUploadFileOpt(true)}>
         <FontAwesomeIcon icon={faFileUpload}/> Upload File
         </button>
     </li>
-    <li className='nav-item'>
+    <li className='nav-item me-3'>
         <button className='btn btn-outline-dark' onClick={()=>setCreateFileOpt(true)}>
         <FontAwesomeIcon icon={faFileCirclePlus} /> Create File
         </button>
     </li> 
-    <li className='nav-item'>
+    <li className='nav-item me-3'>
         <button className='btn btn-outline-dark' onClick={()=>setCreateFolderOpt(true)}>
         <FontAwesomeIcon icon={faFolderPlus}/> Create Folder
         </button>

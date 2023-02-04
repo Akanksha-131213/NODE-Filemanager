@@ -16,10 +16,10 @@ export const Navigation= () => {
   },[pathname])
 
   return (
-<>
+<div className='col-3 ' >
       {showNavBar&&(
-      <Tree/>)}
-</>  
+      <div className='conatiner '><Tree/></div>)}
+</div>  
 
 
 

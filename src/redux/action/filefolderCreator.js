@@ -141,3 +141,38 @@ export const updateFileData = (fileId, data) => (dispatch) => {
       });
   };
 
+  export const uploadFile = (file, data, setSuccess) => (dispatch) => {
+    const uploadFileRef = fire.storage().ref(`files/${data.name}`);
+  
+    uploadFileRef.put(file).on(
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        console.log("uploading " + progress + "%");
+      },
+      (error) => {
+        console.log(error);
+      },
+      async () => {
+        const fileUrl = await uploadFileRef.getDownloadURL();
+        const fullData = { ...data, url: fileUrl };
+  
+        fire
+          .firestore()
+          .collection("files")
+          .add(fullData)
+          .then(async (file) => {
+            const fileData = await (await file.get()).data();
+            const fileId = file.id;
+            dispatch(addFile({ data: fileData, docId: fileId }));
+            alert("File uploaded successfully!");
+            setSuccess(true);
+          })
+          .catch(() => {
+            setSuccess(false);
+          });
+      }
+    );
+  };

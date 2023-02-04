@@ -2,20 +2,19 @@ import React,{ useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { uploadFile } from "../../redux/action/fileFolderCreator.js";
+import { uploadFile } from "../../redux/action/filefolderCreator.js";
 
 
 const UploadFile = ({ setIsFileUploadModalOpen }) => {
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  const { userFiles, user, currentFolder, currentFolderData } = useSelector(
+  const { Files, currentFolder, currentFolderData } = useSelector(
     (state:any) => ({
-      userFiles: state.filefolders.userFiles,
-      user: state.auth.user,
-      currentFolder: state.filefolders.currentFolder,
-      currentFolderData: state.filefolders.userFolders.find(
-        (folder) => folder.docId === state.filefolders.currentFolder
+    Files: state.filefolder.Files,
+      currentFolder: state.filefolder.currentFolder,
+      currentFolderData: state.filefolder.Folders.find(
+        (folder) => folder.docId === state.filefolder.currentFolder
       ),
     }),
     shallowEqual
@@ -31,7 +30,7 @@ const UploadFile = ({ setIsFileUploadModalOpen }) => {
   }, [success]);
 
   const checkFileAlreadyPresent = (name) => {
-    const filePresent = userFiles
+    const filePresent = Files
       .filter((file) => file.data.parent === currentFolder)
       .find((fldr) => fldr.data.name === name);
     if (filePresent) {
@@ -48,8 +47,6 @@ const UploadFile = ({ setIsFileUploadModalOpen }) => {
         const data = {
           createdAt: new Date(),
           name: file.name,
-          userId: user.uid,
-          createdBy: user.displayName,
           path:
             currentFolder === "root"
               ? []

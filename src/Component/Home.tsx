@@ -8,6 +8,7 @@ import CreateFile from './Pages/CreateFile';
 import CreateFolder from './Pages/CreateFolder';
 import FileComponent from './Pages/FileComponent';
 import FolderComponent from './Pages/FolderComponent';
+import UploadFile from './Pages/UploadFile';
 import { Navigation } from './SideBar/Navigation';
 import SubBar from './SubBar'
 
@@ -20,6 +21,7 @@ function Home() {
   const { pathname } = useLocation();
   const [isCreateFolderOpt, setCreateFolderOpt] = useState(false);
   const [isCreateFileOpt, setCreateFileOpt] = useState(false);
+  const [isUploadFileOpt, setUploadFileOpt] = useState(false);
   const { isLoading } = useSelector((state: any) => ({
     isLoading: state.filefolder.isLoading
   }), shallowEqual)
@@ -49,7 +51,12 @@ function Home() {
     <div className='container align-items-center m-auto '>
 
 
-      <div className='flex  justify-content-center m-auto '>
+      <div className='flex  justify-content-center m-auto border ' >
+
+        <div>
+        <nav className="navbar navbar-expand-sm bg-secondary justify-content-center text-white fw-bold">
+  FILE MANAGEMENT APP
+</nav> </div>
 
         {
           isCreateFolderOpt &&
@@ -61,15 +68,20 @@ function Home() {
           (<CreateFile setShowModal2={setCreateFileOpt} showModal2={isCreateFileOpt} />)
         }
 
+{
+          isUploadFileOpt &&
+          (<UploadFile setIsFileUploadModalOpen={setUploadFileOpt} />)
+        }
+
         {showSubBar && (
-          <SubBar setCreateFolderOpt={setCreateFolderOpt} setCreateFileOpt={setCreateFileOpt} />
+          <SubBar setCreateFolderOpt={setCreateFolderOpt} setCreateFileOpt={setCreateFileOpt}  setUploadFileOpt={setUploadFileOpt}/>
+      
         )}
 
-        <div className='row'>
-          <div className='col-3'><Navigation /></div>
-
-
-          <div className='col-9'>
+        < div className='row'>
+          <Navigation />
+          
+           <span className='col-9'>
 
 
 
@@ -79,10 +91,14 @@ function Home() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="folder/:folderId" element={<FolderComponent />} />
-              <Route path="file/:fileId" element={<FileComponent />} />
-            </Routes></div>
+             
+            </Routes></span>
+             <Routes>
+              <Route path="file/:fileId" element={<FileComponent />} /></Routes>
         </div>
-      </div></div>
+      </div>
+      <div></div>
+      </div>
   )
 }
 

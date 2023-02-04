@@ -62,7 +62,7 @@ const handleInfo=()=>{
 <div className='row gap-2 py-4 px-5 text-center fw-bold '>
     {items.map((item,index)=>{ 
 
-return <div className='col-2 card align-self-stretch'>
+return <div className='col-2 card shadow' style={{width:"150px",minHeight:"170px"}}>
 <div key={index *55 } className=' text-center mt-3  flex-column justify-content-center' 
 onDoubleClick={()=>handleDblClick(item.docId)}
 >
@@ -89,7 +89,7 @@ onDoubleClick={()=>handleDblClick(item.docId)}
   
   
   </span>
-  <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div className="modal-content">
       <div className="modal-header">

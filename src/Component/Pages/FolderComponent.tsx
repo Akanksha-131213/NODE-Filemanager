@@ -20,7 +20,8 @@ const FolderComponent = () => {
     }),
     shallowEqual);
   return (
-    <div className='container card'> 
+  <div className=''>
+    <div className='container card ' style={{minHeight:"800px"}}> 
       {childFolder?.length > 0?(
       <div>
       <DisplayItem title={"Folders"} type="folder" items={childFolder}/>
@@ -35,7 +36,7 @@ const FolderComponent = () => {
     </div>):(<div className='text-center m-auto '><h4>Empty Folder</h4></div>)
        )}
 
-    </div>
+    </div></div>
 
   )
 }

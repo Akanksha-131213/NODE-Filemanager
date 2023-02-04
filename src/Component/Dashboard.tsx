@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import DisplayItem from './DisplayItem'
 
@@ -12,7 +12,8 @@ const {isLoading,Folders,Files}=useSelector((state:any)=>({
   Files:state.filefolder.Files.filter((file:any)=>file.data.parent==="root"),
 }),shallowEqual)
   return (
-    <div className='container card ' >
+    <div className=''>
+    <div className='container card' style={{minHeight:"500px"}}>
         
         {isLoading?(<h1> Wait....</h1>):
         (<div>
@@ -20,7 +21,7 @@ const {isLoading,Folders,Files}=useSelector((state:any)=>({
         <DisplayItem title={"files"} type="files" items={Files}/>
       </div>  )} 
         
-
+</div>
 </div>
     
   )
