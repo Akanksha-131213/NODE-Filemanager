@@ -3,13 +3,22 @@ import { shallowEqual, useSelector } from 'react-redux';
 import DisplayItem from './DisplayItem'
 
 
+interface State{
+  filefolder: any;
+  text:"",
+isLoading:true,
+currentFolder:"root",
+Folders:[],
+Files:[]}
+
+
 export const Dashboard = () => {
    // const folders =["new folder","new folder 2"];
 //const files =[ {name:"new f1"}, {name:"new f2"}];
-const {isLoading,Folders,Files}=useSelector((state:any)=>({
+const {isLoading,Folders,Files}=useSelector((state:State)=>({
   isLoading:state.filefolder.isLoading,
-  Folders:state.filefolder.Folders.filter((folder:any)=>folder.data.parent==="root"),
-  Files:state.filefolder.Files.filter((file:any)=>file.data.parent==="root"),
+  Folders:state.filefolder.Folders.filter((folder: { data: { parent: string; }; })=>folder.data.parent==="root"),
+  Files:state.filefolder.Files.filter((file: { data: { parent: string; }; })=>file.data.parent==="root"),
 }),shallowEqual)
   return (
 

@@ -12,7 +12,13 @@ import UploadFile from './Pages/UploadFile';
 import { Navigation } from './SideBar/Navigation';
 import SubBar from './SubBar'
 
-
+interface State{
+  filefolder: any;
+  text:"",
+isLoading:true,
+currentFolder:"root",
+Folders:[],
+Files:[]}
 
 
 function Home() {
@@ -22,7 +28,7 @@ function Home() {
   const [isCreateFolderOpt, setCreateFolderOpt] = useState(false);
   const [isCreateFileOpt, setCreateFileOpt] = useState(false);
   const [isUploadFileOpt, setUploadFileOpt] = useState(false);
-  const { isLoading } = useSelector((state: any) => ({
+  const { isLoading } = useSelector((state: State) => ({
     isLoading: state.filefolder.isLoading
   }), shallowEqual)
 

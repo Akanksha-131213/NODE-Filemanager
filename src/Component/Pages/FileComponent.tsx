@@ -4,13 +4,21 @@ import { useNavigate, useParams } from 'react-router'
 import FileHeader from './FileHeader';
 import CodeEditor from "./CodeEditor.jsx";
 
+interface State{
+  filefolder: any;
+  text:"",
+isLoading:true,
+currentFolder:"root",
+Folders:[],
+Files:[]}
+
 const FileComponent = () => {
   const navigate=useNavigate();
     const{fileId}=useParams();
     const [fileData, setFileData] = useState("");
     const [prevFileData, setPrevFileData] = useState("");
 
-const{currentFile}=useSelector((state:any)=>({ 
+const{currentFile}=useSelector((state:State)=>({ 
      currentFile:state.filefolder.Files.find(
         (file)=>file.docId===fileId
      ),
@@ -66,6 +74,7 @@ return (
                   Go Back
                 </button>
                 <button
+                id="downloading"
                   className="btn btn-sm btn-primary"
                   onClick={() => downloadFile()}
                 >

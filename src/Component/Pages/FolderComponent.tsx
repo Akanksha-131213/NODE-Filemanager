@@ -3,19 +3,26 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useParams } from 'react-router'
 import DisplayItem from '../DisplayItem';
 
+interface State{
+  filefolder: any;
+  text:"",
+isLoading:true,
+currentFolder:"root",
+Folders:[],
+Files:[]}
 
 const FolderComponent = () => {
     const {folderId}=useParams();
     // eslint-disable-next-line 
     const {currentFolderData,childFolder,childFile}=useSelector(
-      (state:any)=>({currentFolderData:state.filefolder.Folders.find(
-        (folder)=>folder.docId===folderId
+      (state:State)=>({currentFolderData:state.filefolder.Folders.find(
+        (folder: { docId: string; })=>folder.docId===folderId
         )?.data,
     childFolder:state.filefolder.Folders.filter(
-      (folder)=>folder.data.parent===folderId
+      (folder: { data: { parent: string; }; })=>folder.data.parent===folderId
       ),
       childFile:state.filefolder.Files.filter(
-        (file)=>file.data.parent===folderId
+        (file: { data: { parent: string; }; })=>file.data.parent===folderId
         ),
     }),
     shallowEqual);

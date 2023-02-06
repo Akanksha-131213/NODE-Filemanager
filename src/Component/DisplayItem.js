@@ -5,6 +5,8 @@ import {changeFolder, delFile, delFolder} from '../redux/action/filefolderCreato
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash ,faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
+
+
 function DisplayItem( {title,items,type}) {
   const navigate=useNavigate();
   const dispatch=useDispatch();

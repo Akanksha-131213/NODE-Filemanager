@@ -36,9 +36,9 @@ export default function NavHead({data}) {
   return (
     <TreeView
       aria-label="rich object"
-      defaultCollapseIcon={<ExpandMoreIcon />}
+      defaultCollapseIcon={<><ExpandMoreIcon /><img src="https://img.icons8.com/officexs/16/null/live-folder.png" alt="Dir" height={20} width={15}/>&nbsp;</>}
       defaultExpanded={['root']}
-      defaultExpandIcon={<ChevronRightIcon />}
+      defaultExpandIcon={<><ChevronRightIcon /><img src="https://img.icons8.com/officexs/16/null/live-folder.png" alt="Dir" height={20} width={15}/>&nbsp;</>}
       sx={{ height: "100vh", flexGrow: 1, maxWidth:"100vh", overflowY: 'auto' }}
     >
       {renderTree(data[0])}

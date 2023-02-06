@@ -4,17 +4,24 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { uploadFile } from "../../redux/action/filefolderCreator.js";
 
+interface State{
+  filefolder: any;
+  text:"",
+isLoading:true,
+currentFolder:"root",
+Folders:[],
+Files:[]}
 
 const UploadFile = ({ setIsFileUploadModalOpen }) => {
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
 
   const { Files, currentFolder, currentFolderData } = useSelector(
-    (state:any) => ({
+    (state:State) => ({
     Files: state.filefolder.Files,
       currentFolder: state.filefolder.currentFolder,
       currentFolderData: state.filefolder.Folders.find(
-        (folder) => folder.docId === state.filefolder.currentFolder
+        (folder: { docId: any; }) => folder.docId === state.filefolder.currentFolder
       ),
     }),
     shallowEqual
@@ -29,10 +36,10 @@ const UploadFile = ({ setIsFileUploadModalOpen }) => {
     }
   }, [success]);
 
-  const checkFileAlreadyPresent = (name) => {
+  const checkFileAlreadyPresent = (name: String) => {
     const filePresent = Files
-      .filter((file) => file.data.parent === currentFolder)
-      .find((fldr) => fldr.data.name === name);
+      .filter((file: { data: { parent: any; }; }) => file.data.parent === currentFolder)
+      .find((fldr: { data: { name: String; }; }) => fldr.data.name === name);
     if (filePresent) {
       return true;
     } else {
@@ -40,7 +47,7 @@ const UploadFile = ({ setIsFileUploadModalOpen }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (file) {
       if (!checkFileAlreadyPresent(file.name)) {
