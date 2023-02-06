@@ -1,5 +1,8 @@
 import * as types from "../actionType/filefolderActionType";
 import fire from "../../config/firebase"
+
+
+
 //actions
 
 const addFolder=(payload)=>({
@@ -141,21 +144,28 @@ export const updateFileData = (fileId, data) => (dispatch) => {
       });
   };
 
+
+
   export const uploadFile = (file, data, setSuccess) => (dispatch) => {
+   alert("uploading...");
     const uploadFileRef = fire.storage().ref(`files/${data.name}`);
   
     uploadFileRef.put(file).on(
       "state_changed",
       (snapshot) => {
-        const progress = Math.round(
+       const prog = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        console.log("uploading " + progress + "%");
+        
+          console.log("uploading " + prog + "%");
+  
+      
       },
       (error) => {
-        console.log(error);
+        alert(error);
       },
       async () => {
+        
         const fileUrl = await uploadFileRef.getDownloadURL();
         const fullData = { ...data, url: fileUrl };
   

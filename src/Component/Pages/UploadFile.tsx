@@ -38,7 +38,7 @@ const UploadFile = ({ setIsFileUploadModalOpen }) => {
 
   const checkFileAlreadyPresent = (name: String) => {
     const filePresent = Files
-      .filter((file: { data: { parent: any; }; }) => file.data.parent === currentFolder)
+      .filter((file: { data: { parent: String; }; }) => file.data.parent === currentFolder)
       .find((fldr: { data: { name: String; }; }) => fldr.data.name === name);
     if (filePresent) {
       return true;
@@ -65,7 +65,9 @@ const UploadFile = ({ setIsFileUploadModalOpen }) => {
           data: null,
           url: "",
         };
-        dispatch(uploadFile(file, data, setSuccess));
+        setIsFileUploadModalOpen(false);
+      
+              dispatch(uploadFile(file, data,success, setSuccess));
       } else {
         alert("File already present");
       }
