@@ -59,7 +59,9 @@ const CreateFolder = ({showModal,setShowModal}) => {
                   updatedAt:new Date(),
                 }
                 console.log(data);
+                
                 dispatch(createFolder(data));
+                document.getElementById("closefolder").click();
 
             }
 
@@ -75,6 +77,7 @@ const CreateFolder = ({showModal,setShowModal}) => {
       <Modal.Header>
         <Modal.Title>Create Folder</Modal.Title>
         <Button
+        id ="closefolder"
           variant="white"
           style={{ cursor: "pointer" }}
           onClick={() => setShowModal(false)}

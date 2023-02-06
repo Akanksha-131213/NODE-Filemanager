@@ -12,6 +12,8 @@ const {isLoading,Folders,Files}=useSelector((state:any)=>({
   Files:state.filefolder.Files.filter((file:any)=>file.data.parent==="root"),
 }),shallowEqual)
   return (
+
+    
     <div className=''>
     <div className='container card' style={{minHeight:"500px"}}>
         

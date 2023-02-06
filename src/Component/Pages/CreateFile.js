@@ -65,6 +65,7 @@ const CreateFile = ({showModal2,setShowModal2}) => {
                 }
                 console.log(data);
                 dispatch(createFile(data));
+                document.getElementById("closefile").click();
 
             }
 
@@ -80,6 +81,7 @@ const CreateFile = ({showModal2,setShowModal2}) => {
       <Modal.Header>
         <Modal.Title>Create File</Modal.Title>
         <Button
+        id="closefile"
           variant="white"
           style={{ cursor: "pointer" }}
           onClick={() => setShowModal2(false)}

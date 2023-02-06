@@ -101,9 +101,8 @@ onDoubleClick={()=>handleDblClick(item.docId)}
         <li className='list-group-item'>Name: <span className='text-secondary'> {item.data.name}</span></li>
         <li className='list-group-item'>U-Id: <span className='text-secondary'>{item.docId}</span></li>
         <li className='list-group-item'>Parent: <span className='text-secondary'>{item.data.parent}</span></li>
-        <li className='list-group-item'>/:{item.data.name}</li>
-        <li className='list-group-item'>/:{item.data.name}</li>
-        <li className='list-group-item'>/:{item.data.name}</li>
+        <li className='list-group-item'>Path: <span className='text-secondary'>{item.data.path}</span></li>
+        <li className='list-group-item'>Created at: <span className='text-secondary'>{item.data.createdAt}</span></li>
        </ul>
       </div>
       

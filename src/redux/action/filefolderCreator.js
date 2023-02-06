@@ -30,10 +30,10 @@ const addFiles=(payload)=>({
     payload
 })
 
-const deleteFile=(payload)=>({
-    type:types.DELETE_FILE,
-    payload
-})
+// const deleteFile=(payload)=>({
+//     type:types.DELETE_FILE,
+//     payload
+// })
 const setFileData = (payload) => ({
     type: types.SET_FILE_DATA,
     payload,
