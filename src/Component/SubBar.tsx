@@ -40,11 +40,11 @@ function SubBar({setCreateFolderOpt,setCreateFileOpt,setUploadFileOpt}) {
   <ol className="breadcrumb d-flex align-item-center">
 {currentFolder!== "root"?(
   <><button onClick={()=>handleNavigate("/home","root")}
-  className="breadcrumb-item btn btn-link text-docoration-none">
+  className="breadcrumb-item btn btn-link text-docoration-none fw-bold">
 Root
   </button>
   {currentFolderData?.data.path.map((folders,index)=>(
-    <button key={index} className="breadcrumb-item btn btn-link"
+    <button key={index} className="breadcrumb-item btn btn-link fw-bold"
     onClick={()=>handleNavigate(
       `/home/folder/${
         Folders.find((folder)=>folders===folder.docId).docId
@@ -54,13 +54,13 @@ Root
       {Folders.find((folder)=>folders===folder.docId).data.name}
     </button>
   )  )}
-  <li className='breadcrumb-item btn active'>
+  <li className='breadcrumb-item btn active fw-bold'>
 {currentFolderData?.data.name} 
   </li>
   </>
 ):(
 
-  <li className="breadcrumb-item"><Link to="/home">Root</Link></li>
+  <li className="breadcrumb-item fw-bold"><Link to="/home">Root</Link></li>
 )}
     
     

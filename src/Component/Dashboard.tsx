@@ -24,7 +24,7 @@ const {isLoading,Folders,Files}=useSelector((state:State)=>({
 
     
     <div className=''>
-    <div className='container card' style={{minHeight:"500px"}}>
+    <div className='container'>
         
         {isLoading?(<h1> Wait....</h1>):
         (<div>

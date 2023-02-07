@@ -57,10 +57,10 @@ function Home() {
     <div className='container align-items-center m-auto '>
 
 
-      <div className='flex  justify-content-center m-auto border ' >
+      <div className='flex justify-content-center m-auto border ' style={{height:"700px",overflowX:"hidden",overflowY:"auto"}} >
 
         <div>
-        <nav className="navbar navbar-expand-sm bg-secondary justify-content-center text-white fw-bold">
+        <nav className="navbar navbar-expand-sm bg-dark justify-content-center text-white fw-bold">
   FILE MANAGEMENT APP
 </nav> </div>
 
@@ -87,7 +87,7 @@ function Home() {
         < div className='row'>
           <Navigation />
           
-           <span className='col-9'>
+           <span className='col-9 border'>
 
 
 
