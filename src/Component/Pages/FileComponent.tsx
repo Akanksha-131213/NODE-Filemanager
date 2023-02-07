@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { shallowEqual, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router'
 import FileHeader from './FileHeader';
-import CodeEditor from "./CodeEditor.jsx";
+import CodeEditor from "./CodeEditor";
 
 interface State{
   filefolder: any;
