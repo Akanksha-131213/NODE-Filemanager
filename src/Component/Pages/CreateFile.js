@@ -37,6 +37,7 @@ const CreateFile = ({showModal2,setShowModal2}) => {
 
     
     const [fileName, setFileName] = useState("");
+    const [filexe, setFilexe] = useState(".txt");
      const handleFileSubmit=(e)=>{
         e.preventDefault();
         if(fileName){
@@ -51,7 +52,8 @@ const CreateFile = ({showModal2,setShowModal2}) => {
             else{
                 const data={
               
-                  name:extension?fileName:`${fileName}.txt`,
+                  name:fileName+filexe,
+                  // extension?fileName:`${fileName}.txt`,
                   createdAt:new Date(),
                   path:
                   currentFolder ==="root"
@@ -59,7 +61,8 @@ const CreateFile = ({showModal2,setShowModal2}) => {
                   parent:currentFolder,
                   lastAccess:null,
                   updatedAt:new Date(),
-                  extension:extension?fileName.split(".")[1]:`txt`,
+                  extension:filexe,
+                  // extension?fileName.split(".")[1]:`txt`,
                   data:"",
                   url:"",
                 }
@@ -79,7 +82,9 @@ const CreateFile = ({showModal2,setShowModal2}) => {
     <div><>
     <Modal show={showModal2} onHide={() => setShowModal2(false)}>
       <Modal.Header>
-        <Modal.Title>Create File</Modal.Title>
+        <Modal.Title>Create File
+          <br/><p className='text-primary'> File Name : {fileName}{filexe}</p>
+        </Modal.Title>
         <Button
         id="closefile"
           variant="white"
@@ -97,8 +102,20 @@ const CreateFile = ({showModal2,setShowModal2}) => {
               placeholder="Enter file name..."
               value={fileName}
               onChange={(e) => setFileName(e.target.value)}
+              required
             />
           </Form.Group>
+          <Form.Group controlId="formBasicFileSubmit" className="mt-5">
+          <Form.Select aria-label="Default select example" onClick={(e)=>{setFilexe(e.target.value)}}>
+      <option value=".txt" >.txt</option>
+      <option value=".c">.c</option>
+      <option value=".json">.json</option>
+      <option value=".java">.java</option>
+      <option value=".html">.html</option>
+      <option value=".py">.py</option>
+    </Form.Select>
+          </Form.Group>
+
           <Form.Group controlId="formBasicFileSubmit" className="mt-5">
             <Button type="submit" className="form-control" variant="primary">
               Add File

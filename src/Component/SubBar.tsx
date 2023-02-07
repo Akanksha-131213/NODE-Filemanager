@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileUpload,faFolderPlus } from "@fortawesome/free-solid-svg-icons";
+import { faFileUpload,faFolderPlus,faFileCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { Link, To, useNavigate } from 'react-router-dom';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { changeFolder } from '../redux/action/filefolderCreator';
@@ -76,11 +76,11 @@ Root
         <FontAwesomeIcon icon={faFileUpload}/> Upload File
         </button>
     </li>
-    {/* <li className='nav-item me-3'>
+    <li className='nav-item me-3'>
         <button className='btn btn-outline-dark' onClick={()=>setCreateFileOpt(true)}>
         <FontAwesomeIcon icon={faFileCirclePlus} /> Create File
         </button>
-    </li>  */}
+    </li> 
     <li className='nav-item me-3'>
         <button className='btn btn-outline-dark' onClick={()=>setCreateFolderOpt(true)}>
         <FontAwesomeIcon icon={faFolderPlus}/> Create Folder
