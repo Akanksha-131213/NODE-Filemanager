@@ -23,7 +23,7 @@ const Tree = () => {
        navo.push(element)
     }
 
-  const data=navo;
+  // const data=navo;
 
     
   function toTree(arr) {
@@ -55,17 +55,13 @@ const Tree = () => {
   
   let tree = toTree(navo);
   
-  // window.alert(JSON.stringify(result));
+
 
   return (
     <><NavHead data={tree}/>
     
 
-       {/* {tree.map((item,index)=>{
-return <p key={index *55 } >
-  {item.id} 
-</p>
-       })} */}
+
     </>
   )
 }

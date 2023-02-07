@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal} from "react-bootstrap";
+import {toast}  from "react-toastify";
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { createFile } from '../../redux/action/filefolderCreator';
 
@@ -18,15 +19,13 @@ const CreateFile = ({showModal2,setShowModal2}) => {
     
       const dispatch=useDispatch();
       const checkFileAlreadyPresent=(name,ext)=>{
-        if(!ext){
-          name=name+".txt"
-        }
+       
       
       const FilePresent=Files
       .filter(
         (file)=>file.data.parent===currentFolder)
       .find((file)=>
-      file.data.name===name);
+      file.data.name===name+ext);
       if (FilePresent)
       return true;
       else return false;
@@ -39,21 +38,20 @@ const CreateFile = ({showModal2,setShowModal2}) => {
     const [fileName, setFileName] = useState("");
     const [filexe, setFilexe] = useState(".txt");
      const handleFileSubmit=(e)=>{
+      
         e.preventDefault();
         if(fileName){
-          let extension=false;
-          if(fileName.split(".").length > 1){
-            extension=true;
-          }
+          let extension=filexe;
+          
         
             if (checkFileAlreadyPresent(fileName,extension)){
-                alert("File already present.")
+                toast.info("File already present.")
             }
             else{
                 const data={
               
-                  name:fileName+filexe,
-                  // extension?fileName:`${fileName}.txt`,
+                  name:fileName+extension,
+                  //extension?fileName:`${fileName}.txt`,
                   createdAt:new Date(),
                   path:
                   currentFolder ==="root"
@@ -61,8 +59,8 @@ const CreateFile = ({showModal2,setShowModal2}) => {
                   parent:currentFolder,
                   lastAccess:null,
                   updatedAt:new Date(),
-                  extension:filexe,
-                  // extension?fileName.split(".")[1]:`txt`,
+                  extension:extension,
+                  //?fileName.split(".")[1]:`txt`,
                   data:"",
                   url:"",
                 }
@@ -74,7 +72,7 @@ const CreateFile = ({showModal2,setShowModal2}) => {
 
 
         }else{
-            alert('file  name cannot be empty.')
+            toast.error('file  name cannot be empty.')
         }
 
     }

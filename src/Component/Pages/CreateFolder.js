@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Form, Modal } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { createFolder } from '../../redux/action/filefolderCreator';
+import {toast} from "react-toastify"
 
 const CreateFolder = ({showModal,setShowModal}) => {
 
@@ -44,7 +45,7 @@ const CreateFolder = ({showModal,setShowModal}) => {
         e.preventDefault();
         if(folderName){
             if (checkFolderAlreadyPresent(folderName)){
-                alert("Folder already present.")
+                toast.info("Folder already present.")
             }
             else{
                 const data={
@@ -67,7 +68,7 @@ const CreateFolder = ({showModal,setShowModal}) => {
 
 
         }else{
-            alert('folder  name cannot be empty.')
+            toast.error('folder  name cannot be empty.')
         }
 
     }

@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { uploadFile } from "../../redux/action/filefolderCreator.js";
+import {toast} from "react-toastify"
+
 
 interface State{
   filefolder: any;
@@ -69,10 +71,10 @@ const UploadFile = ({ setIsFileUploadModalOpen }) => {
       
               dispatch(uploadFile(file, data,success, setSuccess));
       } else {
-        alert("File already present");
+        toast.info("File already present");
       }
     } else {
-      alert("File name cannot be empty");
+      toast.error("File name cannot be empty");
     }
   };
 

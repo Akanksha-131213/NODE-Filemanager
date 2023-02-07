@@ -1,7 +1,7 @@
 import * as types from "../actionType/filefolderActionType";
-import fire from "../../config/firebase"
+import fire from "../../config/firebase";
 
-
+import {toast} from "react-toastify";
 
 //actions
 
@@ -57,7 +57,7 @@ export const createFolder = (data)=>(dispatch)=>{
         const folderId=folder.id;
 
         dispatch(addFolder({data:folderData,docId:folderId}))
-        alert("folder created successfully")
+        toast.success("folder created successfully")
     }
 
     )
@@ -100,7 +100,7 @@ console.log(data);
 fire.firestore().collection("files").add(data).then(async(file)=>{
     const fileData=await (await file.get()).data();
     const fileId=file.id;
-    alert("created sucessfully");
+    toast.success("created sucessfully");
     dispatch(addFile({data:fileData,docId:fileId}))
 
 })
@@ -110,7 +110,7 @@ export const delFile=(id)=>(dispatch)=>{
     fire.firestore().collection("files").doc(id).delete().then(
         
         
-        alert("File deleted"),
+        toast.success("File deleted"),
         dispatch(getFiles())
         )
 
@@ -122,7 +122,7 @@ export const delFolder=(id)=>(dispatch)=>{
     fire.firestore().collection("Folder").doc(id).delete().then(
         
         
-        alert("Folder deleted"),
+        toast.success("Folder deleted"),
         dispatch(getFolders())
         )
 
@@ -137,17 +137,17 @@ export const updateFileData = (fileId, data) => (dispatch) => {
       .update({ data })
       .then(() => {
         dispatch(setFileData({ fileId, data }));
-        alert("File saved successfully!");
+        toast.success("File saved successfully!");
       })
       .catch(() => {
-        alert("Something went wrong!");
+        toast.error("Something went wrong!");
       });
   };
 
 
 
   export const uploadFile = (file, data, setSuccess) => (dispatch) => {
-   alert("uploading...");
+   toast.info("uploading...");
     const uploadFileRef = fire.storage().ref(`files/${data.name}`);
   
     uploadFileRef.put(file).on(
@@ -162,7 +162,7 @@ export const updateFileData = (fileId, data) => (dispatch) => {
       
       },
       (error) => {
-        alert(error);
+        toast.error(error);
       },
       async () => {
         
@@ -177,7 +177,7 @@ export const updateFileData = (fileId, data) => (dispatch) => {
             const fileData = await (await file.get()).data();
             const fileId = file.id;
             dispatch(addFile({ data: fileData, docId: fileId }));
-            alert("File uploaded successfully!");
+            toast.success("File uploaded successfully!");
             setSuccess(true);
           })
           .catch(() => {
