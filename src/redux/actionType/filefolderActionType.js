@@ -8,3 +8,6 @@ export const CREATE_FILE="CREATE_FILES";
 export const SEARCHBAR="SEARCHBAR";
 export const DELETE_FILE="DELETE_FILE";
 export const SET_FILE_DATA="SET_FILE_DATA";
+
+
+export const GET_FOLDER="GET_FOLDER";

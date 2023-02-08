@@ -9,12 +9,12 @@ const addFolder=(payload)=>({
     type: types.CREATE_FOLDER,
     payload
 })
-const addFolders=(payload)=>({
+export const addFolders=(payload)=>({
     type: types.ADD_FOLDER,
     payload
 })
 
-const setLoading=(payload)=>({
+export const setLoading=(payload)=>({
 type:types.SET_LOADING,
 payload,
 })
@@ -64,19 +64,20 @@ export const createFolder = (data)=>(dispatch)=>{
 }
 
 export const getFolders=()=>(dispatch)=>{
-    dispatch(setLoading(true));
-    fire
-    .firestore()
-    .collection("Folder")
-    .get()
-    .then(async(folders)=>{
-        const foldersData=await folders.docs.map((folder)=>({
-      data:folder.data(),
-        docId: folder.id,}));
-         dispatch(setLoading(false));
-        dispatch(addFolders(foldersData));
+    // dispatch(setLoading(true));
+    // fire
+    // .firestore()
+    // .collection("Folder")
+    // .get()
+    // .then(async(folders)=>{
+    //     const foldersData=await folders.docs.map((folder)=>({
+    //   data:folder.data(),
+    //     docId: folder.id,}));
+    //      dispatch(setLoading(false));
+    //     dispatch(addFolders(foldersData));
        
-    });
+    // });
+    return{type: types.GET_FOLDER};
 }
 export const changeFolder=(folderId)=>(dispatch)=>{
     dispatch(setChangeFolder(folderId));
@@ -123,7 +124,7 @@ export const delFolder=(id)=>(dispatch)=>{
         
         
         toast.success("Folder deleted"),
-        dispatch(getFolders())
+        // dispatch(getFolders())
         )
 
 
