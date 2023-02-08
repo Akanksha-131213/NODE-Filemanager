@@ -10,4 +10,4 @@ export const DELETE_FILE="DELETE_FILE";
 export const SET_FILE_DATA="SET_FILE_DATA";
 
 
-export const GET_FOLDER="GET_FOLDER";
+// export const GET_FOLDER="GET_FOLDER";
