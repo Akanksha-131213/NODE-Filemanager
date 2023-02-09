@@ -65,7 +65,8 @@ const handleInfo=()=>{
     {items.map((item,index)=>{ 
 
 return <div className='col-2 card shadow' style={{width:"150px",minHeight:"170px"}}>
-<div key={index *55 } className=' text-center mt-3  flex-column justify-content-center' 
+  
+<div key={index * 55 } className=' text-center mt-3  flex-column justify-content-center' 
 onDoubleClick={()=>handleDblClick(item.docId)}
 >
  {type==="folder"?(
@@ -103,7 +104,7 @@ onDoubleClick={()=>handleDblClick(item.docId)}
         <li className='list-group-item'>Name: <span className='text-secondary'> {item.data.name}</span></li>
         <li className='list-group-item'>U-Id: <span className='text-secondary'>{item.docId}</span></li>
         <li className='list-group-item'>Parent: <span className='text-secondary'>{item.data.parent}</span></li>
-        <li className='list-group-item'>Path: <span className='text-secondary'>root{item.data.path.map((i)=>(i)?(<p>{i}</p>):(""))}</span></li>
+        <li className='list-group-item'>Path: <span className='text-secondary'>root{item.data.path.map((i)=>(i)?(<p>/ {i}</p>):(""))}</span></li>
      
        </ul>
       </div>

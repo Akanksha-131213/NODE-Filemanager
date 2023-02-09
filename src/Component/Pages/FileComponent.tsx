@@ -20,7 +20,7 @@ const FileComponent = () => {
 
 const{currentFile}=useSelector((state:State)=>({ 
      currentFile:state.filefolder.Files.find(
-        (file)=>file.docId===fileId
+        (file: { docId: string; })=>file.docId===fileId
      ),
 }),shallowEqual)
 

@@ -124,7 +124,7 @@ export const delFolder=(id)=>(dispatch)=>{
         
         
         toast.success("Folder deleted"),
-        // dispatch(getFolders())
+        dispatch(getFolders())
         )
 
 

@@ -43,15 +43,15 @@ function SubBar({setCreateFolderOpt,setCreateFileOpt,setUploadFileOpt}) {
   className="breadcrumb-item btn btn-link text-docoration-none fw-bold">
 Root
   </button>
-  {currentFolderData?.data.path.map((folders,index)=>(
+  {currentFolderData?.data.path.map((folders: object,index: React.Key)=>(
     <button key={index} className="breadcrumb-item btn btn-link fw-bold"
     onClick={()=>handleNavigate(
       `/home/folder/${
-        Folders.find((folder)=>folders===folder.docId).docId
+        Folders.find((folder: { docId: String; })=>folders===folder.docId).docId
       }`,
-      Folders.find((folder)=>folders===folder.docId).docId
+      Folders.find((folder: { docId: String; })=>folders===folder.docId).docId
     )}>
-      {Folders.find((folder)=>folders===folder.docId).data.name}
+      {Folders.find((folder: { docId: String; })=>folders===folder.docId).data.name}
     </button>
   )  )}
   <li className='breadcrumb-item btn active fw-bold'>
