@@ -14,7 +14,7 @@ import {
 const router = express.Router();
 router.get("/files", getFiles);
 router.get("/folders", getFolders);
-// router.get("/file/:id", getFile);
+
 router.delete("/file/:id", deleteFile);
 router.delete("/folder/:id", deleteFolder);
 router.put("/file/:id", updateFile);
