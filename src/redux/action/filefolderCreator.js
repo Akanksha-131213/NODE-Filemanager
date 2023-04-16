@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 //actions
 // const URL = "http://localhost:8080";
-const URL = "https://node-filemanager.vercel.app";
+const URL = "https://node-backend-filemanager.vercel.app/";
 
 const addFolder = (payload) => ({
   type: types.CREATE_FOLDER,
