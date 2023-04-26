@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from 'react'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import { getFiles,getFolders} from '../redux/action/filefolderCreator.js';
-//import {getFolders} from "../redux/action/sagas.jsx";
-import { Dashboard } from './Dashboard'
+import React, { useState, useEffect } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { getFiles, getFolders } from "../redux/action/filefolderCreator.js";
+import { folders, files } from "../redux/Graphql/query.js";
+import { Dashboard } from "./Dashboard";
+import { useQuery } from "@apollo/client";
 
-import CreateFile from './Pages/CreateFile';
-import CreateFolder from './Pages/CreateFolder';
-import FileComponent from './Pages/FileComponent';
-import FolderComponent from './Pages/FolderComponent';
-import UploadFile from './Pages/UploadFile';
-import { Navigation } from './SideBar/Navigation';
-import SubBar from './SubBar'
+import CreateFile from "./Pages/CreateFile";
+import CreateFolder from "./Pages/CreateFolder";
+import FileComponent from "./Pages/FileComponent";
+import FolderComponent from "./Pages/FolderComponent";
+import UploadFile from "./Pages/UploadFile";
+import { Navigation } from "./SideBar/Navigation";
+import SubBar from "./SubBar";
+import { type } from "os";
 
-interface State{
+interface State {
   filefolder: any;
-  text:"",
-isLoading:true,
-currentFolder:"root",
-Folders:[],
-Files:[]}
-
+  text: "";
+  isLoading: Boolean;
+  currentFolder: "root";
+  Folders: [];
+  Files: [];
+}
 
 function Home() {
   const dispatch = useDispatch();
@@ -29,83 +31,81 @@ function Home() {
   const [isCreateFolderOpt, setCreateFolderOpt] = useState(false);
   const [isCreateFileOpt, setCreateFileOpt] = useState(false);
   const [isUploadFileOpt, setUploadFileOpt] = useState(false);
-  const { isLoading } = useSelector((state: State) => ({
-    isLoading: state.filefolder.isLoading
-  }), shallowEqual)
-
+  const { loading, error, data } = useQuery(folders);
+  const res2 = useQuery(files);
+  const isLoading: boolean = loading;
+  console.log(res2.data);
+  console.log(data);
   useEffect(() => {
     if (pathname.includes("/file/")) {
       setSubBar(false);
-    }
-    else{
+    } else {
       setSubBar(true);
     }
-  }, [pathname])
-
-
+  }, [pathname]);
 
   useEffect(() => {
-    if (isLoading) {
-      dispatch(getFolders());
-      dispatch(getFiles());
+    if (!loading && !res2.loading) {
+      dispatch(getFiles(res2.data));
+      dispatch(getFolders(data));
     }
-
-  }, [isLoading, dispatch])
-
-
-
+  }, [loading, res2.loading, dispatch]);
+  if (loading) return <>"Wait ..."</>;
+  if (error) return <>"error"</>;
   return (
-    <div className='container align-items-center m-auto '>
-
-
-      <div className='flex justify-content-center m-auto border ' style={{height:"700px",overflowX:"hidden",overflowY:"auto"}} >
-
+    <div className="container align-items-center m-auto ">
+      <div
+        className="flex justify-content-center m-auto border "
+        style={{ height: "700px", overflowX: "hidden", overflowY: "auto" }}
+      >
         <div>
-        <nav className="navbar navbar-expand-sm bg-dark justify-content-center text-white fw-bold">
-  FILE MANAGEMENT APP
-</nav> </div>
+          <nav className="navbar navbar-expand-sm bg-dark justify-content-center text-white fw-bold">
+            FILE MANAGEMENT APP
+          </nav>{" "}
+        </div>
 
-        {
-          isCreateFolderOpt &&
-          (<CreateFolder setShowModal={setCreateFolderOpt} showModal={isCreateFolderOpt} />)
-        }
-
-        {
-          isCreateFileOpt &&
-          (<CreateFile setShowModal2={setCreateFileOpt} showModal2={isCreateFileOpt} />)
-        }
-
-{
-          isUploadFileOpt &&
-          (<UploadFile setIsFileUploadModalOpen={setUploadFileOpt} />)
-        }
-
-        {showSubBar && (
-          <SubBar setCreateFolderOpt={setCreateFolderOpt} setCreateFileOpt={setCreateFileOpt}  setUploadFileOpt={setUploadFileOpt}/>
-      
+        {isCreateFolderOpt && (
+          <CreateFolder
+            setShowModal={setCreateFolderOpt}
+            showModal={isCreateFolderOpt}
+          />
         )}
 
-        < div className='row'>
+        {isCreateFileOpt && (
+          <CreateFile
+            setShowModal2={setCreateFileOpt}
+            showModal2={isCreateFileOpt}
+          />
+        )}
+
+        {isUploadFileOpt && (
+          <UploadFile setIsFileUploadModalOpen={setUploadFileOpt} />
+        )}
+
+        {showSubBar && (
+          <SubBar
+            setCreateFolderOpt={setCreateFolderOpt}
+            setCreateFileOpt={setCreateFileOpt}
+            setUploadFileOpt={setUploadFileOpt}
+          />
+        )}
+
+        <div className="row">
           <Navigation />
-          
-           <span className='col-9 border'>
-
-
-
-
-
-
+          <span className="col-9 border">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="folder/:folderId" element={<FolderComponent />} />
-             
-            </Routes></span> <Routes>
-              <Route path="file/:fileId" element={<FileComponent />} /></Routes>
+            </Routes>
+          </span>{" "}
+          <Routes>
+            <Route path="file/:fileId" element={<FileComponent />} />
+          </Routes>
         </div>
       </div>
       <div></div>
-      </div>
-  )
+    </div>
+  );
 }
 
-export default Home
+export default Home;
