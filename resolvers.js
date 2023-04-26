@@ -31,7 +31,7 @@ const resolvers = {
     },
   },
   Mutation: {
-    createFile: (args) => {
+    createFile: (parent, args, context, info) => {
       const file = new File({
         name: args.fileInput.name,
         createdAt: new Date(args.fileInput.createdAt),
@@ -54,17 +54,14 @@ const resolvers = {
           throw err;
         });
     },
-    createFolder: (args) => {
+    createFolder: (parent, args, context, info) => {
       const folder = new Folder({
         name: args.folderInput.name,
         createdAt: new Date(args.folderInput.createdAt),
-        data: args.folderInput.data,
-        extension: args.folderInput.extension,
         lastAccess: new Date(args.folderInput.lastAccess),
         parent: args.folderInput.parent,
         path: args.folderInput.path,
         updatedAt: new Date(args.folderInput.updatedAt),
-        url: args.folderInput.url,
       });
       return folder
         .save()
