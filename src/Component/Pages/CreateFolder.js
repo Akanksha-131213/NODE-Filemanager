@@ -3,10 +3,13 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Form, Modal } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { createFolder } from "../../redux/action/filefolderCreator";
+import { createFolders } from "../../redux/action/filefolderCreator";
 import { toast } from "react-toastify";
+import { useMutation } from "@apollo/client";
+import { create_Folder } from "../../redux/Graphql/query";
 
 const CreateFolder = ({ showModal, setShowModal }) => {
+  const [createFolder, { err }] = useMutation(create_Folder);
   const { currentFolder, Folders, currentFolderData } = useSelector(
     (state) => ({
       Folders: state.filefolder.Folders,
@@ -58,14 +61,26 @@ const CreateFolder = ({ showModal, setShowModal }) => {
           updatedAt: new Date(),
         };
         console.log(data);
-
-        dispatch(createFolder(data));
+        const id = createFolder({
+          variables: data,
+          // variables: {
+          //   name: data.name,
+          //   createdAt: data.createdAt,
+          //   lastAccess: data.lastAccess,
+          //   parent: data.parent,
+          //   path: data.path,
+          //   updatedAt: data.updatedAt,
+          // },
+        });
+        data.docId = id;
+        dispatch(createFolders(data));
         document.getElementById("closefolder").click();
       }
     } else {
       toast.error("folder  name cannot be empty.");
     }
   };
+
   return (
     <div>
       <>

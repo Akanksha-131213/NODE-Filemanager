@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { getFiles, getFolders } from "../redux/action/filefolderCreator.js";
 import { folders, files } from "../redux/Graphql/query.js";
@@ -13,7 +13,6 @@ import FolderComponent from "./Pages/FolderComponent";
 import UploadFile from "./Pages/UploadFile";
 import { Navigation } from "./SideBar/Navigation";
 import SubBar from "./SubBar";
-import { type } from "os";
 
 interface State {
   filefolder: any;
@@ -33,7 +32,7 @@ function Home() {
   const [isUploadFileOpt, setUploadFileOpt] = useState(false);
   const { loading, error, data } = useQuery(folders);
   const res2 = useQuery(files);
-  const isLoading: boolean = loading;
+  // const isLoading: boolean = loading;
   console.log(res2.data);
   console.log(data);
   useEffect(() => {

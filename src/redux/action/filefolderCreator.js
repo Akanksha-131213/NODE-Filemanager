@@ -2,8 +2,8 @@ import * as types from "../actionType/filefolderActionType";
 import fire from "../../config/firebase";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useQuery } from "@apollo/client";
-import { files, folders } from "../Graphql/query";
+import { useQuery, useMutation } from "@apollo/client";
+import { files, folders, create_Folder } from "../Graphql/query";
 
 //actions
 // const URL = "http://localhost:8080";
@@ -42,18 +42,22 @@ const setFileData = (payload) => ({
   payload,
 });
 
-export const createFolder = (data) => (dispatch) => {
+export const createFolders = (data) => (dispatch) => {
   // axios
   //   .post(`${URL}/folder/add`, data)
   //   .then(async (folder) => {
   //     const folderData = data;
   //     const folderId = folder.data._id;
-  //     dispatch(addFolder({ data: folderData, docId: folderId }));
-  //     toast.success("folder created successfully");
+
+  // const id = createFolder({ variables: data });
+  // const docId = id;
+
+  dispatch(addFolder({ data: data, docId: data.docId }));
+  toast.success("folder created successfully");
   //   })
   //   .catch((error) => console.error(error));
 };
-export const createFile = (data) => (dispatch) => {
+export const createFiles = (data) => (dispatch) => {
   //   console.log(data);
   //   axios
   //     .post(`${URL}/file/add`, data)
@@ -61,8 +65,9 @@ export const createFile = (data) => (dispatch) => {
   //       console.log("done", file.data._id);
   //       const fileData = data;
   //       const fileId = file.data._id;
-  //       toast.success("created sucessfully");
-  //       dispatch(addFile({ data: fileData, docId: fileId }));
+  dispatch(addFile({ data: data, docId: data.docId }));
+  toast.success("created sucessfully");
+
   //     })
   //     .catch((error) => console.error(error));
 };
