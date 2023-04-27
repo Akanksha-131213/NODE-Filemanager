@@ -1,20 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   changeFolder,
-  delFile,
-  delFolder,
+  delFiles,
+  delFolders,
+  getFolders,
 } from "../redux/action/filefolderCreator.js";
 import Modal from "react-bootstrap/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  Del_File,
+  Del_Folder,
+  files,
+  folders,
+} from "../redux/Graphql/query.js";
+import { useMutation, useQuery } from "@apollo/client";
 
 function DisplayItem({ title, items, type }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [info, setInfo] = useState({});
   const [modalShow, setModalShow] = useState(false);
+  const [delFile, { err }] = useMutation(Del_File);
+  const [delFolder, { errr }] = useMutation(Del_Folder);
+  const { loading, error, data } = useQuery(folders);
+  const res2 = useQuery(files);
   const { Folders, Files } = useSelector(
     (state) => ({
       Folders: state.filefolder.Folders.filter(
@@ -29,20 +41,13 @@ function DisplayItem({ title, items, type }) {
 
   const handleDel = (type, id) => {
     if (type === "folder") {
-      dispatch(delFolder(id));
-      for (const i in Folders) {
-        if (Folders[i].data.path.includes(id)) {
-          console.log(Folders[i].data.name);
-          dispatch(delFolder(Folders[i].docId));
-        }
-      }
-      for (const i in Files) {
-        if (Files[i].data.parent === id) {
-          dispatch(delFolder(Files[i].docId));
-        }
-      }
+      delFolder({
+        variables: { id: id },
+      }).then(dispatch(delFolders(id, Folders)));
     } else {
-      dispatch(delFile(id));
+      delFile({
+        variables: { id: id },
+      }).then(dispatch(delFiles(id, Files)));
     }
   };
 

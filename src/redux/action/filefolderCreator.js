@@ -27,6 +27,7 @@ const setChangeFolder = (payload) => ({
   type: types.CHANGE_FOLDER,
   payload,
 });
+
 const addFile = (payload) => ({
   type: types.ADD_FILES,
   payload,
@@ -42,34 +43,17 @@ const setFileData = (payload) => ({
   payload,
 });
 
+const deleteFile = (payload) => ({
+  type: types.DELETE_FILE,
+  payload,
+});
 export const createFolders = (data) => (dispatch) => {
-  // axios
-  //   .post(`${URL}/folder/add`, data)
-  //   .then(async (folder) => {
-  //     const folderData = data;
-  //     const folderId = folder.data._id;
-
-  // const id = createFolder({ variables: data });
-  // const docId = id;
-
   dispatch(addFolder({ data: data, docId: data.docId }));
   toast.success("folder created successfully");
-  //   })
-  //   .catch((error) => console.error(error));
 };
 export const createFiles = (data) => (dispatch) => {
-  //   console.log(data);
-  //   axios
-  //     .post(`${URL}/file/add`, data)
-  //     .then(async (file) => {
-  //       console.log("done", file.data._id);
-  //       const fileData = data;
-  //       const fileId = file.data._id;
   dispatch(addFile({ data: data, docId: data.docId }));
   toast.success("created sucessfully");
-
-  //     })
-  //     .catch((error) => console.error(error));
 };
 
 export const getFolders = (data) => (dispatch) => {
@@ -90,21 +74,42 @@ export const getFiles = (data) => (dispatch) => {
     data: file,
     docId: file._id,
   }));
-  console.log(filesData);
+
+  console.log("test file ka", filesData);
   dispatch(addFiles(filesData));
 };
 
-export const delFile = (id) => (dispatch) => {
-  // console.log(id);
-  // axios
-  //   .delete(`${URL}/file/${id}`)
-  //   .then(dispatch(getFiles()), toast.success("File deleted"));
+export const delFiles = (id, data) => (dispatch) => {
+  const ans = Object.entries(data) // converts each entry to [key, value]
+    .filter(([k, v]) => v.docId !== id) // define the criteria to include/exclude items
+    .reduce((acc, [k, v]) => {
+      acc[k] = v;
+      return acc; // this function can be improved, it converts the [[k, v]] back to {k: v, k: v, ...}
+    }, {});
+  // console.log(data, "ers");
+
+  var val = Object.keys(ans).map((key) => {
+    return ans[key];
+  });
+
+  toast.success("File deleted successfully!");
+  dispatch(addFiles(val));
+  // console.log(val, "ers");
 };
-export const delFolder = (id) => async (dispatch) => {
-  // console.log(id);
-  // await axios.delete(`${URL}/folder/${id}`);
-  // toast.success("Folder deleted");
-  // dispatch(getFolders());
+export const delFolders = (id, data) => async (dispatch) => {
+  const ans = Object.entries(data) // converts each entry to [key, value]
+    .filter(([k, v]) => v.docId !== id) // define the criteria to include/exclude items
+    .reduce((acc, [k, v]) => {
+      acc[k] = v;
+      return acc; // this function can be improved, it converts the [[k, v]] back to {k: v, k: v, ...}
+    }, {});
+  // console.log(data, "ers");
+
+  var val = Object.keys(ans).map((key) => {
+    return ans[key];
+  });
+  toast.success("Folder deleted successfully!");
+  dispatch(addFolders(val));
 };
 export const updateFileData = (fileId, data) => (dispatch) => {
   console.log(data);

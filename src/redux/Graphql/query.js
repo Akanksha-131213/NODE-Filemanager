@@ -81,3 +81,13 @@ export const create_Folder = gql`
     }
   }
 `;
+export const Del_File = gql`
+  mutation delFile($id: String) {
+    delFile(id: $id)
+  }
+`;
+export const Del_Folder = gql`
+  mutation delFolder($id: String) {
+    delFolder(id: $id)
+  }
+`;

@@ -56,13 +56,17 @@ const CreateFile = ({ showModal2, setShowModal2 }) => {
           data: "",
           url: "",
         };
-        const id = createFile({
-          variables: data,
-        });
-        data.docId = id;
 
-        console.log(data);
-        dispatch(createFiles(data));
+        async function abc() {
+          const id = await createFile({
+            variables: data,
+          });
+          data.docId = id.data.createFile._id;
+
+          console.log(data);
+          dispatch(createFiles(data));
+        }
+        abc();
         document.getElementById("closefile").click();
       }
     } else {

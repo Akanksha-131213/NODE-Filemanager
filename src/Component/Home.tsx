@@ -33,7 +33,7 @@ function Home() {
   const { loading, error, data } = useQuery(folders);
   const res2 = useQuery(files);
   // const isLoading: boolean = loading;
-  console.log(res2.data);
+  console.log("data file ka", res2.data);
   console.log(data);
   useEffect(() => {
     if (pathname.includes("/file/")) {

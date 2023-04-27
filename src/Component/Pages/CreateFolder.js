@@ -61,19 +61,14 @@ const CreateFolder = ({ showModal, setShowModal }) => {
           updatedAt: new Date(),
         };
         console.log(data);
-        const id = createFolder({
-          variables: data,
-          // variables: {
-          //   name: data.name,
-          //   createdAt: data.createdAt,
-          //   lastAccess: data.lastAccess,
-          //   parent: data.parent,
-          //   path: data.path,
-          //   updatedAt: data.updatedAt,
-          // },
-        });
-        data.docId = id;
-        dispatch(createFolders(data));
+        async function abc() {
+          const id = await createFolder({
+            variables: data,
+          });
+          data.docId = id.data.createFolder._id;
+          dispatch(createFolders(data));
+        }
+        abc();
         document.getElementById("closefolder").click();
       }
     } else {
