@@ -56,15 +56,13 @@ const typeDefs = gql`
     files: [File!]!
     folders: [Folder!]!
   }
-  input updateFile {
-    data: String
-  }
+
   type Mutation {
     createFile(fileInput: FileInput): File
     createFolder(folderInput: FolderInput): Folder
-    delFile(id: ID): String
-    delFolder(id: ID): String
-    updateFile(id: ID, data: updateFile): File
+    delFile(id: String): String
+    delFolder(id: String): String
+    updateFile(id: String, data: String): File
   }
 `;
 export default typeDefs;

@@ -86,7 +86,11 @@ const resolvers = {
     },
     updateFile: async (parent, args, context, info) => {
       const { id } = args;
-      const obj = await File.findByIdAndUpdate(id, args.data, { new: true });
+      const obj = await File.findByIdAndUpdate(
+        id,
+        { data: args.data },
+        { new: true }
+      );
       return obj;
     },
   },
