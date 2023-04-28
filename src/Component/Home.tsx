@@ -32,6 +32,7 @@ function Home() {
   const [isUploadFileOpt, setUploadFileOpt] = useState(false);
   const { loading, error, data } = useQuery(folders);
   const res2 = useQuery(files);
+
   // const isLoading: boolean = loading;
   console.log("data file ka", res2.data);
   console.log(data);

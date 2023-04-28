@@ -91,3 +91,10 @@ export const Del_Folder = gql`
     delFolder(id: $id)
   }
 `;
+export const update_File = gql`
+  mutation updateFile($id: String, $data: String) {
+    updateFile(id: $id, data: $data) {
+      _id
+    }
+  }
+`;

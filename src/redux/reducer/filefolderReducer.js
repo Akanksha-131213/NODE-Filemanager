@@ -58,14 +58,30 @@ const filefolderReducer = (state = initialState, action) => {
         loading: false,
       };
     case types.SET_FILE_DATA:
-      const { fileId, data } = action.payload;
       const allFiles = state.Files;
-      const currentFile = allFiles.find((file) => file.docId === fileId);
-      currentFile.data.data = data;
+      const currentFile = allFiles.find(
+        (file) => file.docId === action.payload.fileId
+      );
+
+      const obj = {
+        docId: currentFile.docId,
+        data: {
+          name: currentFile.data.name,
+          createdAt: currentFile.data.createdAt,
+          path: currentFile.data.path,
+          parent: currentFile.data.parent,
+          lastAccess: currentFile.data.lastAccess,
+          updatedAt: currentFile.data.updatedAt,
+          extension: currentFile.data.extension,
+          data: action.payload.datas,
+          url: currentFile.data.url,
+        },
+      };
+
       return {
         ...state,
         Files: state.Files.map((file) =>
-          file.docId === fileId ? currentFile : file
+          file.docId === action.payload.fileId ? obj : file
         ),
       };
 

@@ -4,7 +4,10 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { uploadFile } from "../../redux/action/filefolderCreator.js";
 import { toast } from "react-toastify";
-
+import fire from "../../config/firebase.js";
+import { create_File } from "../../redux/Graphql/query";
+import { useMutation } from "@apollo/client";
+import { createFiles } from "../../redux/action/filefolderCreator";
 interface State {
   filefolder: any;
   text: "";
@@ -17,7 +20,7 @@ interface State {
 const UploadFile = ({ setIsFileUploadModalOpen }) => {
   const [file, setFile] = useState(null);
   const [success, setSuccess] = useState(false);
-
+  const [createFile, { error }] = useMutation(create_File);
   const { Files, currentFolder, currentFolderData } = useSelector(
     (state: State) => ({
       Files: state.filefolder.Files,
@@ -62,15 +65,42 @@ const UploadFile = ({ setIsFileUploadModalOpen }) => {
               ? []
               : [...currentFolderData?.data.path, currentFolder],
           parent: currentFolder,
-          lastAccessed: null,
+          lastAccess: null,
           updatedAt: new Date(),
           extension: file.name.split(".")[1],
           data: null,
           url: "",
         };
         setIsFileUploadModalOpen(false);
+        toast.info("uploading...");
+        const uploadFileRef = fire.storage().ref(`files/${data.name}`);
 
-        dispatch(uploadFile(file, data, success, setSuccess));
+        uploadFileRef.put(file).on(
+          "state_changed",
+          (snapshot) => {
+            const prog = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+
+            console.log("uploading " + prog + "%");
+          },
+          (error) => {
+            toast.error(error);
+          },
+          async () => {
+            const fileUrl = await uploadFileRef.getDownloadURL();
+
+            const id = await createFile({
+              variables: { ...data, url: fileUrl },
+            });
+            const docId = id.data.createFile._id;
+            const fullData = { ...data, url: fileUrl, docId: docId };
+            console.log(fullData);
+            dispatch(createFiles(fullData));
+          }
+        );
+
+        // dispatch(uploadFile(file, data, success, setSuccess));
       } else {
         toast.info("File already present");
       }

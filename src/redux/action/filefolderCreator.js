@@ -52,8 +52,9 @@ export const createFolders = (data) => (dispatch) => {
   toast.success("folder created successfully");
 };
 export const createFiles = (data) => (dispatch) => {
-  dispatch(addFile({ data: data, docId: data.docId }));
+  console.log("here", data);
   toast.success("created sucessfully");
+  dispatch(addFile({ data: data, docId: data.docId }));
 };
 
 export const getFolders = (data) => (dispatch) => {
@@ -112,51 +113,18 @@ export const delFolders = (id, data) => async (dispatch) => {
   dispatch(addFolders(val));
 };
 export const updateFileData = (fileId, data) => (dispatch) => {
-  console.log(data);
-  const sdata = { data: data };
-  axios
-    .put(`${URL}/file/${fileId}`, sdata)
-    .then(() => {
-      dispatch(setFileData({ fileId, data }));
-      toast.success("File saved successfully!");
-    })
-    .catch(() => {
-      toast.error("Something went wrong!");
-    });
+  // console.log(data);
+  // const sdata = { data: data };
+  // axios
+  //   .put(`${URL}/file/${fileId}`, sdata)
+  //   .then(() => {
+  console.log("fgjfd", data);
+  dispatch(setFileData({ fileId: fileId, datas: data }));
+  toast.success("File saved successfully!");
+  // })
+  // .catch(() => {
+  //   toast.error("Something went wrong!");
+  // });
 };
 
-export const uploadFile = (file, data, setSuccess) => (dispatch) => {
-  toast.info("uploading...");
-  const uploadFileRef = fire.storage().ref(`files/${data.name}`);
-
-  uploadFileRef.put(file).on(
-    "state_changed",
-    (snapshot) => {
-      const prog = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      );
-
-      console.log("uploading " + prog + "%");
-    },
-    (error) => {
-      toast.error(error);
-    },
-    async () => {
-      const fileUrl = await uploadFileRef.getDownloadURL();
-      const fullData = { ...data, url: fileUrl };
-
-      axios
-        .post(`${URL}/file/add`, fullData)
-        .then(async (file) => {
-          const fileData = fullData;
-          const fileId = file.data._id;
-          dispatch(addFile({ data: fileData, docId: fileId }));
-          toast.success("File uploaded successfully!");
-          setSuccess(true);
-        })
-        .catch(() => {
-          setSuccess(false);
-        });
-    }
-  );
-};
+export const uploadFile = (file, data, setSuccess) => (dispatch) => {};

@@ -30,10 +30,12 @@ function DisplayItem({ title, items, type }) {
   const { Folders, Files } = useSelector(
     (state) => ({
       Folders: state.filefolder.Folders.filter(
-        (folder) => folder.data.parent === "root"
+        (folder) => folder
+        // .data.parent === "root"
       ),
       Files: state.filefolder.Files.filter(
-        (file) => file.data.parent === "root"
+        (file) => file
+        // data.parent === "root"
       ),
     }),
     shallowEqual
