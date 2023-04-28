@@ -50,7 +50,7 @@ function Home() {
       dispatch(getFolders(data));
     }
   }, [loading, res2.loading, dispatch]);
-  if (loading) return <>"Wait ..."</>;
+  if (loading) return <h1>"Wait ..."</h1>;
   if (error) return <>"error"</>;
   return (
     <div className="container align-items-center m-auto ">

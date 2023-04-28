@@ -14,7 +14,7 @@ import {
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: "http://localhost:8080/graphql",
+    uri: "https://node-filemanager-git-graphql-akanksha-131213.vercel.app/graphql",
   }),
 });
 const root = ReactDOM.createRoot(document.getElementById("root"));
